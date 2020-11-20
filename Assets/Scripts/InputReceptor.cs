@@ -9,7 +9,6 @@ public class InputReceptor : MonoBehaviour
     public static Action OnDeclineEvent;
     public static Action OnAnyEvent;
 
-    private PlayerInputManager _playerInputManager = null;
     private Controls _controls = null;
     private PlayerInput _playerInput = null;
 
@@ -26,13 +25,6 @@ public class InputReceptor : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
-        _playerInputManager = FindObjectOfType<PlayerInputManager>();
-        if(_playerInputManager == null)
-        {
-            Debug.LogError("Couldnt find PlayerInputManager in Scene");
-            return;
-        }
-        transform.SetParent(_playerInputManager.transform);
 
         _playerInput = GetComponent<PlayerInput>();
         if(_playerInput == null)
@@ -83,6 +75,7 @@ public class InputReceptor : MonoBehaviour
 
     private void AcceptEvent(InputAction.CallbackContext context)
     {
+        Debug.Log("ACCEPT");
         OnAcceptEvent?.Invoke();
     }
 

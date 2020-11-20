@@ -97,7 +97,7 @@
                 {
                     "name": "",
                     "id": "7e209451-9602-4798-a9a8-340dbb75c75c",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -108,7 +108,7 @@
                 {
                     "name": "",
                     "id": "4d9c0ff9-7487-4d6f-80eb-7f84076c3e00",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

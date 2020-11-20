@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +10,7 @@ public class ScenesManager : MonoBehaviour
     private static ScenesManager _instance = null;
     private string _currentSceneName = string.Empty;
 
-    private void Awake()
+    public void Construct()
     {
         if(_instance != null)
         {
