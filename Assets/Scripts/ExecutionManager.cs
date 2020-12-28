@@ -6,6 +6,8 @@ public class ExecutionManager : MonoBehaviour
     private static ExecutionManager _instance = null;
     private ScenesManager _scenesManager = null;
     private ObjectSelect _objectSelect = null;
+    private NetworkManager _networkManager = null;
+    private GameManager _gameManager = null;
 
     private void Awake()
     {
@@ -28,6 +30,8 @@ public class ExecutionManager : MonoBehaviour
     {
         _scenesManager = GetReference(_scenesManager);
         _objectSelect = GetReference(_objectSelect);
+        _networkManager = GetReference(_networkManager);
+        _gameManager = GetReference(_gameManager);
     }
 
     private T GetReference<T>(T reference) where T : Object
@@ -49,5 +53,7 @@ public class ExecutionManager : MonoBehaviour
     {
         _scenesManager.Construct();
         _objectSelect.Construct();
+        _networkManager.Construct();
+        _gameManager.Construct();
     }
 }
