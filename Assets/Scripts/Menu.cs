@@ -1,33 +1,57 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] private Button _singlePlayerButton = null;
-    [SerializeField] private Button _multiPlayerButton = null;
+    // public static Action OnLocalSelectedEvent;
+    // public static Action OnOnlineSelectedEvent;
+    public static Action<bool> OnConectivitySelectedEvent;
+    
+    [SerializeField] private Button _localButton = null;
+    [SerializeField] private Button _onlineButton = null;
     private Button[] buttons = null;
 
     private void Awake()
     {
+        buttons = new Button[2] {_localButton, _onlineButton};
+        ObjectSelect.Instance.SelectObject(_localButton.gameObject);
+    }
+
+    private void OnEnable()
+    {
         ButtonsAddListener();
-        buttons = FindObjectsOfType<Button>();
-        ObjectSelect.Instance.SelectObject(_singlePlayerButton.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        ButtonsRemoveListener();
     }
 
     private void ButtonsAddListener()
     {
-        _singlePlayerButton.onClick.AddListener(SinglePlayerButton);
-        _multiPlayerButton.onClick.AddListener(MultiPlayerButton);
+        _localButton.onClick.AddListener(LocalButton);
+        _onlineButton.onClick.AddListener(OnlineButton);
     }
 
-    public void SinglePlayerButton()
+    private void ButtonsRemoveListener()
     {
-        DisableButtons();
+        _localButton.onClick.RemoveListener(LocalButton);
+        _onlineButton.onClick.RemoveListener(OnlineButton);
     }
 
-    private void MultiPlayerButton()
+    public void LocalButton()
     {
         DisableButtons();
+        OnConectivitySelectedEvent?.Invoke(true);
+        // OnLocalSelectedEvent?.Invoke();
+    }
+
+    private void OnlineButton()
+    {
+        DisableButtons();
+        OnConectivitySelectedEvent?.Invoke(false);
+        // OnOnlineSelectedEvent?.Invoke();
     }
 
     private void DisableButtons()

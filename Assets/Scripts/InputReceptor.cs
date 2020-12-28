@@ -32,7 +32,6 @@ public class InputReceptor : MonoBehaviour
             Debug.LogError("Couldnt find PlayerInput Component in PlayerInput Prefab");
             return;
         }
-
         _controls = new Controls();
     }
 
@@ -75,7 +74,6 @@ public class InputReceptor : MonoBehaviour
 
     private void AcceptEvent(InputAction.CallbackContext context)
     {
-        Debug.Log("ACCEPT");
         OnAcceptEvent?.Invoke();
     }
 

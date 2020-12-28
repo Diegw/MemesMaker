@@ -1,14 +1,21 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager Instance => _instance;
     public static Action OnSceneChanged;
+    public static string MENU_SCENE => MENU;
+    public static string LOBBY_SCENE => LOBBY;
+    public static string GAMEPLAY_SCENE => GAMEPLAY;
 
+    private const string MENU = "Menu";
+    private const string LOBBY = "Lobby";
+    private const string GAMEPLAY = "GAMEPLAY";
     private static ScenesManager _instance = null;
-    private string _currentSceneName = string.Empty;
+    [SerializeField] private string _currentSceneName = string.Empty;
 
     public void Construct()
     {
@@ -40,7 +47,7 @@ public class ScenesManager : MonoBehaviour
 
     public void LoadScene(string sceneToLoad)
     {
-        SceneManager.LoadScene(sceneToLoad);
+        PhotonNetwork.LoadLevel(sceneToLoad);
     }
     
     private void OnDestroy()
