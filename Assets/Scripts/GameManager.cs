@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameSettings GameSettings => _gameSettings;
 
     private static GameManager _instance = null;
+    private const string MEMES_IMAGES_PATH = "Images";
     [SerializeField] private GameSettings _gameSettings = null;
 
     public void Construct()
@@ -16,6 +18,11 @@ public class GameManager : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
+        _gameSettings.MemesSprites = Resources.LoadAll<Sprite>(MEMES_IMAGES_PATH).ToList();
     }
 
     private void OnEnable()
