@@ -1,21 +1,28 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Splash : MonoBehaviour
 {
+    [SerializeField] private PlayerInputManager _playerInputManager = null;
+
+    private void Awake()
+    {
+        if (_playerInputManager == null) Debug.LogError("There isnt any PlayerInputManager");
+    }
+
     private void OnEnable()
     {
-        InputReceptor.OnAnyEvent += Continue;
+        _playerInputManager.onPlayerJoined += Continue;
     }
 
     private void OnDisable()
     {
-        InputReceptor.OnAnyEvent -= Continue;
+        _playerInputManager.onPlayerJoined -= Continue;
     }
 
-    private void Continue()
+    private void Continue(PlayerInput playerInput)
     {
-        ScenesManager.Instance.LoadScene("Menu");
+        ScenesManager.Instance.LoadScene(ScenesManager.MENU_SCENE);
     }
 
     private void OnDestroy()
