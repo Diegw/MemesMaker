@@ -10,12 +10,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public static Action<bool> OnConectedToServerEvent;
     public static Action OnRoomCreatedEvent;
     public static Action<string> OnRoomJoinedEvent;
+    public NetworkPlayerList Players => _players;
 
-    private List<char> ROOM_CHARACTERS = new List<char>()
-    {'A','B','C','D','E','F','G','H','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','1','2','3','4','5','6','7','8','9'};
     private static NetworkManager _instance = null;
     [SerializeField] private string _roomName = string.Empty;
     [SerializeField] private NetworkPlayerList _players = new NetworkPlayerList();
+    private char[] _roomCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789".ToCharArray();
 
     public void Construct()
     {
@@ -92,6 +92,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         OnRoomJoinedEvent?.Invoke(_roomName);
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if(_players.List.Contains(_players.GetNetworkPlayer(player.ActorNumber)))
+            {
+                continue;
+            }
+            _players.AddPlayer(player);
+        }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -105,7 +113,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         _roomName = string.Empty;
         for (int i = 0; i < 5; i++)
         {
-            _roomName += ROOM_CHARACTERS[UnityEngine.Random.Range(0, ROOM_CHARACTERS.Count)];
+            _roomName += _roomCharacters[UnityEngine.Random.Range(0, _roomCharacters.Length)];
         }
         return _roomName;
     }

@@ -1,14 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
+using Sirenix.OdinInspector;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SerializedMonoBehaviour
 {
     public static GameManager Instance => _instance;
-    public GameSettings GameSettings => _gameSettings;
-
+    public bool IsOffline { get => _isOffline; set => _isOffline = value; }
+    public Dictionary<int, Sprite> MemesSprites => _memesSprites;
+    public int ImagesOptionsPerPlayer => _imagesOptionsPerPlayer;
     private static GameManager _instance = null;
     private const string MEMES_IMAGES_PATH = "Images";
-    [SerializeField] private GameSettings _gameSettings = null;
+    [SerializeField] private bool _isOffline = false;
+    [OnValueChanged( nameof(CheckIfPair) )][SerializeField] private int _imagesOptionsPerPlayer = 4;
+    [SerializeField] private Dictionary<int, Sprite> _memesSprites = new Dictionary<int, Sprite>();
 
     public void Construct()
     {
@@ -22,7 +27,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _gameSettings.MemesSprites = Resources.LoadAll<Sprite>(MEMES_IMAGES_PATH).ToList();
+        List<Sprite> sprites = new List<Sprite>();
+        sprites = Resources.LoadAll<Sprite>(MEMES_IMAGES_PATH).ToList();
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            MemesSprites.Add(i, sprites[i]);            
+        }
     }
 
     private void OnEnable()
@@ -37,6 +47,15 @@ public class GameManager : MonoBehaviour
 
     private void SetOfflineMode(bool conectivityState)
     {
-        _gameSettings.IsOffline = conectivityState;
+        IsOffline = conectivityState;
+    }
+
+    private void CheckIfPair()
+    {
+        if(_imagesOptionsPerPlayer % 2 == 0)
+        {
+            return;
+        }
+        _imagesOptionsPerPlayer = Mathf.Max(_imagesOptionsPerPlayer+1, _imagesOptionsPerPlayer);
     }
 }

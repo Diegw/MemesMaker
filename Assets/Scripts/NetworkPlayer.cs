@@ -11,6 +11,10 @@ using Photon.Realtime;
         _simulation = newPlayer.UserId;
     }
 
+    public int ID => _ID;
+    public string Name => _name;
+    public string Simulation => _simulation;
+
     [SerializeField] private int _ID = -1;
     [SerializeField] private string _name = string.Empty;
     [SerializeField] private string _simulation = string.Empty;
