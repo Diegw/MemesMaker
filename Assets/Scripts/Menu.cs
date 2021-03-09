@@ -4,61 +4,52 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    // public static Action OnLocalSelectedEvent;
-    // public static Action OnOnlineSelectedEvent;
     public static Action<bool> OnConectivitySelectedEvent;
     
-    [SerializeField] private Button _localButton = null;
     [SerializeField] private Button _onlineButton = null;
-    private Button[] buttons = null;
+    [SerializeField] private Button _localButton = null;
+    private Button[] _buttons = null;
 
     private void Awake()
     {
-        buttons = new Button[2] {_localButton, _onlineButton};
-        ObjectSelect.Instance.SelectObject(_localButton.gameObject);
+        _buttons = new Button[2] {_onlineButton, _localButton};
+        ObjectSelect.Instance.SelectObject(_onlineButton.gameObject);
     }
 
     private void OnEnable()
     {
-        ButtonsAddListener();
+        _onlineButton.onClick.AddListener(OnlineButton);
+        _localButton.onClick.AddListener(LocalButton);
     }
 
     private void OnDisable()
     {
-        ButtonsRemoveListener();
-    }
-
-    private void ButtonsAddListener()
-    {
-        _localButton.onClick.AddListener(LocalButton);
-        _onlineButton.onClick.AddListener(OnlineButton);
-    }
-
-    private void ButtonsRemoveListener()
-    {
-        _localButton.onClick.RemoveListener(LocalButton);
         _onlineButton.onClick.RemoveListener(OnlineButton);
-    }
-
-    public void LocalButton()
-    {
-        DisableButtons();
-        OnConectivitySelectedEvent?.Invoke(true);
-        // OnLocalSelectedEvent?.Invoke();
+        _localButton.onClick.RemoveListener(LocalButton);
     }
 
     private void OnlineButton()
     {
         DisableButtons();
         OnConectivitySelectedEvent?.Invoke(false);
-        // OnOnlineSelectedEvent?.Invoke();
+    }
+
+    public void LocalButton()
+    {
+        DisableButtons();
+        OnConectivitySelectedEvent?.Invoke(true);
     }
 
     private void DisableButtons()
     {
-        foreach (Button button in buttons)
+        foreach (Button button in _buttons)
         {
             button.interactable = false;
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnDisable();
     }
 }

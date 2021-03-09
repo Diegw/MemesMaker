@@ -7,12 +7,17 @@ public class GameManager : SerializedMonoBehaviour
 {
     public static GameManager Instance => _instance;
     public bool IsOffline { get => _isOffline; set => _isOffline = value; }
-    public Dictionary<int, Sprite> MemesSprites => _memesSprites;
     public int ImagesOptionsPerPlayer => _imagesOptionsPerPlayer;
+    public float[] StagesDuration => _stagesDuration;
+    public float BattleDuration => _battleDuration;
+    public Dictionary<int, Sprite> MemesSprites => _memesSprites;
+
     private static GameManager _instance = null;
     private const string MEMES_IMAGES_PATH = "Images";
     [SerializeField] private bool _isOffline = false;
     [OnValueChanged( nameof(CheckIfPair) )][SerializeField] private int _imagesOptionsPerPlayer = 4;
+    [SerializeField] private float[] _stagesDuration = null;
+    [Range(0f, 120f)][SerializeField] private float _battleDuration = 30f;
     [SerializeField] private Dictionary<int, Sprite> _memesSprites = new Dictionary<int, Sprite>();
 
     public void Construct()

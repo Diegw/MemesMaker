@@ -2,7 +2,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -13,9 +13,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public NetworkPlayerList Players => _players;
 
     private static NetworkManager _instance = null;
-    [SerializeField] private string _roomName = string.Empty;
-    [SerializeField] private NetworkPlayerList _players = new NetworkPlayerList();
-    private char[] _roomCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789".ToCharArray();
+    [TabGroup("DEBUG")][SerializeField] private string _roomName = string.Empty;
+    [TabGroup("DEBUG")][HideLabel][SerializeField] private NetworkPlayerList _players = new NetworkPlayerList();
+    private char[] _roomCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
     public void Construct()
     {

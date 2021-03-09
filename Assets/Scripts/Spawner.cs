@@ -4,7 +4,6 @@ using Photon.Pun;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Match _matchPrefab = null;
-    [SerializeField] private MatchUI _matchUIPrefab = null;
 
     private void Awake()
     {
@@ -14,6 +13,5 @@ public class Spawner : MonoBehaviour
             return;
         }
         PhotonNetwork.InstantiateRoomObject(_matchPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
-        Instantiate(_matchUIPrefab.gameObject, Vector3.zero, Quaternion.identity);
     }
 }

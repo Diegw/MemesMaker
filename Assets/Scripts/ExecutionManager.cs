@@ -3,6 +3,7 @@
 public class ExecutionManager : MonoBehaviour
 {
     public static ExecutionManager Instance => _instance;
+
     private static ExecutionManager _instance = null;
     private ScenesManager _scenesManager = null;
     private ObjectSelect _objectSelect = null;
@@ -13,6 +14,10 @@ public class ExecutionManager : MonoBehaviour
     {
         Singleton();
         GetReferences();
+        if(CheckReferences() == false)
+        {
+            return;
+        }
         Construct();
     }
 
@@ -47,6 +52,24 @@ public class ExecutionManager : MonoBehaviour
             return null;
         }
         return reference;
+    }
+    
+    private bool CheckReferences()
+    {
+        if(CheckReference(_scenesManager) == false) return false;
+        if(CheckReference(_objectSelect) == false) return false;
+        if(CheckReference(_networkManager) == false) return false;
+        if(CheckReference(_gameManager) == false) return false;
+        return true;
+    }
+
+    private bool CheckReference<T>(T reference) where T : Object
+    {
+        if(reference == null)
+        {
+            return false;
+        }
+        return true;
     }
 
     private void Construct()

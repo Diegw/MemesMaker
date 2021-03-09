@@ -5,18 +5,18 @@ using Photon.Realtime;
 
 [Serializable] public class NetworkPlayerList
 {
-    public List<NetworkPlayer> List => _list;
+    public List<NetworkPlayer> List => _players;
 
-    [SerializeField] private List<NetworkPlayer> _list = new List<NetworkPlayer>();
+    [SerializeField] private List<NetworkPlayer> _players = new List<NetworkPlayer>();
 
     public void AddPlayer(Player newPlayer)
     {
-        _list.Add(new NetworkPlayer(newPlayer));
+        _players.Add(new NetworkPlayer(newPlayer));
     }
 
     public NetworkPlayer GetNetworkPlayer(int playerID)
     {
-        foreach (NetworkPlayer networkPlayer in _list)
+        foreach (NetworkPlayer networkPlayer in _players)
         {
             if(networkPlayer.ID == playerID)
             {
