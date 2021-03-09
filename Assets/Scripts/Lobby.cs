@@ -23,8 +23,8 @@ public class Lobby : MonoBehaviour
     private void Awake()
     {
         CheckButtons();
-        bool localState = GameManager.Instance.GameSettings.IsOffline == true ? true : false;
-        bool onlineState = GameManager.Instance.GameSettings.IsOffline == true ? false : true;
+        bool localState = GameManager.Instance.IsOffline == true ? true : false;
+        bool onlineState = GameManager.Instance.IsOffline == true ? false : true;
         _local.SetActive(localState);
         _online.SetActive(onlineState);
         _match.SetActive(false);

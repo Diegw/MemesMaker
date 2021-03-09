@@ -25,7 +25,6 @@ public class InputReceptor : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
-
         _playerInput = GetComponent<PlayerInput>();
         if(_playerInput == null)
         {

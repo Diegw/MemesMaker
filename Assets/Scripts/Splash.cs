@@ -7,11 +7,20 @@ public class Splash : MonoBehaviour
 
     private void Awake()
     {
-        if (_playerInputManager == null) Debug.LogError("There isnt any PlayerInputManager");
+        if(_playerInputManager != null)
+        {
+            return;
+        }
+        _playerInputManager = FindObjectOfType<PlayerInputManager>();
     }
 
     private void OnEnable()
     {
+        if(_playerInputManager == null)
+        {
+            Debug.LogError("There isnt any PlayerInputManager");
+            return;
+        }
         _playerInputManager.onPlayerJoined += Continue;
     }
 

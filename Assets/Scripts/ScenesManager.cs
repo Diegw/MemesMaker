@@ -11,9 +11,9 @@ public class ScenesManager : MonoBehaviour
     public static string LOBBY_SCENE => LOBBY;
     public static string GAMEPLAY_SCENE => GAMEPLAY;
 
-    private const string MENU = "Menu";
-    private const string LOBBY = "Lobby";
-    private const string GAMEPLAY = "GAMEPLAY";
+    private const string MENU = "02.Menu";
+    private const string LOBBY = "03.Lobby";
+    private const string GAMEPLAY = "04.Gameplay";
     private static ScenesManager _instance = null;
     [SerializeField] private string _currentSceneName = string.Empty;
 
